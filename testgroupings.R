@@ -64,13 +64,12 @@ PDP_AR_parsed <- PDP_AR |>
         completion_timeframe = case_when(
             completion_status != "continued enrollment" ~ completion_timeframe_raw
         ),
-        one_year_after_compl = cohort_year_num + completion_timeframe,
+        one_year_after_compl_num = cohort_year_num + completion_timeframe,
         one_year_after_compl_match = case_when(
-            one_year_after_compl < 2025 ~ 1,
+            one_year_after_compl_num < 2025 ~ 1,
             .default = 0
         ),
-        completion_cohort_num = cohort_year_num + completion_timeframe,
-        completion_cohort = as.factor(str_c(completion_cohort_num - 1, "-", str_sub(completion_cohort_num, 3, 5))),
+        one_year_after_compl = as.factor(str_c(one_year_after_compl_num - 1, "-", str_sub(one_year_after_compl_num, 3, 5))),
         access_minority = case_when(
             Race == "Black or African American" ~ "Y",
             Race == "Hispanic" ~ "Y",
